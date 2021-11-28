@@ -1,0 +1,45 @@
+{% load staticfiles custom_tags %}
+%html
+    %head
+        %title Myth Cloth Prices
+        %script{src: '{% static "js/jquery/jquery-1.11.1.min.js" %}' }
+        %script{src: '{% static "js/highcharts.js" %}' }
+        %script{src: '{% static "js/jquery.highchartTable-min.js" %}' }
+        %script{src: '{% static "js/main.js" %}' }
+    %body
+        #highchart-container
+        %table.highchart
+            -# %thead
+            -#     %tr
+            -#         %th &nbsp;
+            -#         %th Dia 1
+            -#         %th Dia 2
+            -#         %th Dia 3
+            -# %tbody
+            -#     %tr
+            -#         %td Item 1
+            -#         %td 11
+            -#         %td 12
+            -#         %td 13
+            -#     %tr
+            -#         %td Item 2
+            -#         %td 21
+            -#         %td 22
+            -#         %td 23
+            %thead
+                %tr
+                    %th &nbsp;
+                    {% for day in days %}
+                    %th {{day}}
+                    {% endfor %}
+            %tbody
+                {% for item in items %}
+                %tr
+                    %td {{ item.name }}
+                    {% with item.pk as item_pk %}
+                    {% for price in prices|index:item_pk %}
+                    %td {{ price }}
+                    {% endfor %}
+                    {% endwith %}
+                {% endfor %}
+
